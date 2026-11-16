@@ -8,11 +8,15 @@
 .
 ├── index.html
 ├── photos.html          # 新版獨立照片牆
+├── share.html           # 短網址與主要／備用 QR Code
 ├── css/style.css
 ├── css/photos.css
+├── css/share.css
 ├── js/app.js
 ├── js/photos.js
+├── js/share.js
 ├── scripts/crop_photos.py
+├── scripts/generate_qr.py
 ├── images/              # 由履歷 PDF 轉出的公開版代表頁面
 └── README.md
 ```
@@ -34,8 +38,12 @@ python -m http.server 8000
 ## 後續維護
 
 - 修改文字：直接編輯 `index.html`。
+- 個人網站首頁已改為重新整理後的個人品牌結構，不直接呈現原始 PDF 頁面。
+- 閱讀設定：首頁右上方可切換文字「中／大／特大」與「淺／深／綠／藍」背景，選擇會保存在瀏覽器。
 - 照片牆：開啟 `photos.html`，以分類按鈕瀏覽拆解後的單張照片。
+- 分享頁：開啟 `share.html`，取得短網址 `https://is.gd/5AKOTT`、主要 QR 與 GitHub Pages 備用 QR。
 - 修改視覺：集中調整 `css/style.css` 最上方的色彩與字體變數。
 - 增加影像：放入 `images/`，再於 `index.html` 的 `.gallery-grid` 增加項目與分類標籤。
 - 重新拆解照片：調整 `scripts/crop_photos.py` 的裁切座標後執行 `python scripts/crop_photos.py`。
+- 重新產生 QR：調整 `scripts/generate_qr.py` 的網址後執行 `python scripts/generate_qr.py`。
 - 部署：可直接使用 GitHub Pages、Netlify 或 Cloudflare Pages，這是一個不需要建置流程的靜態網站。

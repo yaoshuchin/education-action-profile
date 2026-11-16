@@ -1,3 +1,4 @@
+const body = document.body;
 const menuToggle = document.querySelector('.menu-toggle');
 const nav = document.querySelector('.main-nav');
 
@@ -13,26 +14,34 @@ document.querySelectorAll('.main-nav a').forEach((link) => {
   });
 });
 
-const filterButtons = document.querySelectorAll('.filter');
-const galleryItems = document.querySelectorAll('.gallery-item');
-filterButtons.forEach((button) => {
+const savedTheme = localStorage.getItem('education-theme');
+const savedSize = localStorage.getItem('education-size');
+if (savedTheme) body.dataset.theme = savedTheme;
+if (savedSize) body.dataset.size = savedSize;
+
+function updateSelected(selector, attribute, value) {
+  document.querySelectorAll(selector).forEach((button) => {
+    button.classList.toggle('selected', button.getAttribute(attribute) === value);
+  });
+}
+
+document.querySelectorAll('[data-theme-choice]').forEach((button) => {
   button.addEventListener('click', () => {
-    filterButtons.forEach((item) => item.classList.remove('active'));
-    button.classList.add('active');
-    const filter = button.dataset.filter;
-    galleryItems.forEach((item) => {
-      item.classList.toggle('is-hidden', filter !== 'all' && !item.classList.contains(filter));
-    });
+    const theme = button.dataset.themeChoice;
+    body.dataset.theme = theme;
+    localStorage.setItem('education-theme', theme);
+    updateSelected('[data-theme-choice]', 'data-theme-choice', theme);
   });
 });
 
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      revealObserver.unobserve(entry.target);
-    }
+document.querySelectorAll('[data-size-choice]').forEach((button) => {
+  button.addEventListener('click', () => {
+    const size = button.dataset.sizeChoice;
+    body.dataset.size = size;
+    localStorage.setItem('education-size', size);
+    updateSelected('[data-size-choice]', 'data-size-choice', size);
   });
-}, { threshold: 0.12 });
+});
 
-document.querySelectorAll('.reveal').forEach((element) => revealObserver.observe(element));
+updateSelected('[data-theme-choice]', 'data-theme-choice', body.dataset.theme);
+updateSelected('[data-size-choice]', 'data-size-choice', body.dataset.size);
