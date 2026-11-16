@@ -1,47 +1,37 @@
 const body = document.body;
-const menuToggle = document.querySelector('.menu-toggle');
-const nav = document.querySelector('.main-nav');
-
-menuToggle?.addEventListener('click', () => {
-  const isOpen = nav.classList.toggle('open');
-  menuToggle.setAttribute('aria-expanded', String(isOpen));
-});
-
-document.querySelectorAll('.main-nav a').forEach((link) => {
-  link.addEventListener('click', () => {
-    nav.classList.remove('open');
-    menuToggle?.setAttribute('aria-expanded', 'false');
-  });
-});
-
+const menu = document.querySelector('.menu');
+const nav = document.querySelector('.nav');
 const savedTheme = localStorage.getItem('education-theme');
 const savedSize = localStorage.getItem('education-size');
 if (savedTheme) body.dataset.theme = savedTheme;
 if (savedSize) body.dataset.size = savedSize;
 
-function updateSelected(selector, attribute, value) {
+function syncButtons(selector, attribute, value) {
   document.querySelectorAll(selector).forEach((button) => {
-    button.classList.toggle('selected', button.getAttribute(attribute) === value);
+    button.setAttribute('aria-pressed', String(button.dataset[attribute] === value));
   });
 }
 
-document.querySelectorAll('[data-theme-choice]').forEach((button) => {
+menu?.addEventListener('click', () => {
+  const open = nav.classList.toggle('open');
+  menu.setAttribute('aria-expanded', String(open));
+});
+
+document.querySelectorAll('[data-size]').forEach((button) => {
   button.addEventListener('click', () => {
-    const theme = button.dataset.themeChoice;
-    body.dataset.theme = theme;
-    localStorage.setItem('education-theme', theme);
-    updateSelected('[data-theme-choice]', 'data-theme-choice', theme);
+    body.dataset.size = button.dataset.size;
+    localStorage.setItem('education-size', body.dataset.size);
+    syncButtons('[data-size]', 'size', body.dataset.size);
   });
 });
 
-document.querySelectorAll('[data-size-choice]').forEach((button) => {
+document.querySelectorAll('[data-theme]').forEach((button) => {
   button.addEventListener('click', () => {
-    const size = button.dataset.sizeChoice;
-    body.dataset.size = size;
-    localStorage.setItem('education-size', size);
-    updateSelected('[data-size-choice]', 'data-size-choice', size);
+    body.dataset.theme = button.dataset.theme;
+    localStorage.setItem('education-theme', body.dataset.theme);
+    syncButtons('[data-theme]', 'theme', body.dataset.theme);
   });
 });
 
-updateSelected('[data-theme-choice]', 'data-theme-choice', body.dataset.theme);
-updateSelected('[data-size-choice]', 'data-size-choice', body.dataset.size);
+syncButtons('[data-size]', 'size', body.dataset.size);
+syncButtons('[data-theme]', 'theme', body.dataset.theme);

@@ -8,6 +8,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "images"
+HIGH_RES_SOURCE = SOURCE / "source-hi"
 OUTPUT = SOURCE / "photos"
 
 # (來源頁碼, 檔名, left, top, right, bottom, 分類, 標題)
@@ -42,9 +43,15 @@ CROPS = [
 def main() -> None:
     OUTPUT.mkdir(parents=True, exist_ok=True)
     for page, name, left, top, right, bottom, _category, _title in CROPS:
-        source = SOURCE / f"page-{page}.jpg"
+        # Prefer 220 DPI exports for sharper website images; fall back to the
+        # earlier 110 DPI previews when a source page is not available.
+        source = HIGH_RES_SOURCE / f"page-{page}.jpg"
+        scale = 2 if source.exists() else 1
+        if not source.exists():
+            source = SOURCE / f"page-{page}.jpg"
         with Image.open(source) as image:
-            image.crop((left, top, right, bottom)).save(OUTPUT / f"{name}.jpg", quality=90, optimize=True)
+            box = (left * scale, top * scale, right * scale, bottom * scale)
+            image.crop(box).save(OUTPUT / f"{name}.jpg", quality=94, optimize=True)
     print(f"created {len(CROPS)} individual photos in {OUTPUT}")
 
 
