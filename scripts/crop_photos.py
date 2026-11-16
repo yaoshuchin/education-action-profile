@@ -39,10 +39,20 @@ CROPS = [
     (54, "eco-03", 50, 425, 450, 680, "school", "全國決賽成果"),
 ]
 
+# 個人與團隊照片：從原始圖版中獨立裁切，避免網站直接顯示 PDF 頁面。
+# 這些素材用於人物、歷程、專業社群與治校願景段落。
+PROFILE_CROPS = [
+    (15, "profile-award", 48, 145, 366, 480, "profile", "杏壇芬芳獎頒獎現場"),
+    (30, "profile-beach", 582, 775, 815, 1125, "profile", "在海邊思考教育的方向"),
+    (56, "profile-learning", 42, 178, 322, 430, "profile", "與學生一起學習與討論"),
+    (59, "profile-team", 300, 115, 575, 375, "profile", "用心服務行政團隊"),
+    (60, "profile-students", 28, 820, 495, 1085, "profile", "陪學生一起慶祝成長"),
+]
+
 
 def main() -> None:
     OUTPUT.mkdir(parents=True, exist_ok=True)
-    for page, name, left, top, right, bottom, _category, _title in CROPS:
+    for page, name, left, top, right, bottom, _category, _title in CROPS + PROFILE_CROPS:
         # Prefer 220 DPI exports for sharper website images; fall back to the
         # earlier 110 DPI previews when a source page is not available.
         source = HIGH_RES_SOURCE / f"page-{page}.jpg"

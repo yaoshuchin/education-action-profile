@@ -18,7 +18,8 @@
 ├── js/share.js
 ├── scripts/crop_photos.py
 ├── scripts/generate_qr.py
-├── images/              # 由履歷 PDF 轉出的公開版代表頁面
+├── images/              # 公開版代表頁面與裁切後的教育現場照片
+│   └── photos/           # sport / international / care / school / profile
 └── README.md
 ```
 
@@ -47,5 +48,7 @@ python -m http.server 8000
 - 修改視覺：集中調整 `css/style.css` 最上方的色彩與字體變數。
 - 增加影像：放入 `images/`，再於 `index.html` 的 `.gallery-grid` 增加項目與分類標籤。
 - 重新拆解照片：調整 `scripts/crop_photos.py` 的裁切座標後執行 `python scripts/crop_photos.py`。
+- 個人照片：`images/photos/profile-*.jpg` 是從高解析度頁面獨立裁切的董勳遠人物／團隊照片；首頁、完整檔案、照片牆與分享頁均以圖說對應教育脈絡。
+- 影像原則：網站使用獨立裁切照片，不直接公開 PDF 頁面；若替換照片，請同步更新 `alt` 文字與圖說，並確認公開授權。
 - 重新產生 QR：調整 `scripts/generate_qr.py` 的網址後執行 `python scripts/generate_qr.py`。
 - 部署：可直接使用 GitHub Pages、Netlify 或 Cloudflare Pages，這是一個不需要建置流程的靜態網站。

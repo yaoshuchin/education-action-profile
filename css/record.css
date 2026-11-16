@@ -2,3 +2,14 @@
 /* Prevent horizontal overflow on wide screens. */
 .record-section.tinted{width:auto;margin-left:0;padding-left:0;padding-right:0}
 @media(max-width:760px){.record-section.tinted{margin-left:0;padding-left:0;padding-right:0}}
+
+/* Evidence cards keep the dossier visual: one image, one sentence, one section. */
+.record-section::after{display:grid;align-content:end;min-height:270px;margin:58px 0 0 84px;padding:20px;color:#fff;background-color:var(--ink);background-repeat:no-repeat;background-position:left center;background-size:55% 100%;box-shadow:12px 12px 0 var(--sun);content:""}
+#education::after{background-image:linear-gradient(90deg,transparent 42%,var(--ink) 72%),url('../images/photos/profile-award.jpg');content:"專業，不只是一張證書｜從體育專業走進教育研究，再回到孩子身邊。";text-align:right;font-family:var(--serif);font-size:24px;line-height:1.5}
+#career::after{background-image:linear-gradient(90deg,transparent 42%,var(--soft) 72%),url('../images/photos/profile-team.jpg');color:var(--ink);content:"真誠領導，用心服務團隊｜行政的終點不是權力，而是讓同仁更有力量。";text-align:right;font-family:var(--serif);font-size:24px;line-height:1.5}
+#learning::after{background-image:linear-gradient(90deg,transparent 42%,var(--ink) 72%),url('../images/photos/profile-learning.jpg');content:"把學習帶回現場｜備課、觀課、議課，讓教師與學生一起成長。";text-align:right;font-family:var(--serif);font-size:24px;line-height:1.5}
+#impact::after{background-image:linear-gradient(90deg,transparent 42%,var(--soft) 72%),url('../images/page-54.jpg');color:var(--ink);content:"教育要留下可看見的改變｜從運動、品格到環境，讓理念變成孩子參與過的經驗。";text-align:right;font-family:var(--serif);font-size:24px;line-height:1.5}
+#awards::after{background-image:linear-gradient(90deg,transparent 42%,var(--ink) 72%),url('../images/photos/profile-award.jpg');content:"獎項是里程碑，孩子才是答案｜每一份肯定，最後都回到教育現場。";text-align:right;font-family:var(--serif);font-size:24px;line-height:1.5}
+#vision::after{background-image:linear-gradient(90deg,transparent 42%,var(--soft) 72%),url('../images/photos/profile-students.jpg');color:var(--ink);content:"願景要能被孩子感受到｜不怕失敗，才有機會長出韌性與夢想。";text-align:right;font-family:var(--serif);font-size:24px;line-height:1.5}
+@media(max-width:760px){.record-section::after{margin-left:54px;min-height:220px;background-size:58% 100%;font-size:18px;padding:14px}.record-section.tinted::after{margin-left:54px}}
+html,body{overflow-x:hidden}
